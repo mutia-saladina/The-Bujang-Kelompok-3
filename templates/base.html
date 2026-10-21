@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Steel Plates Faults{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('index') }}">
+            SteelFault<span>Lab</span>
+        </a>
+
+        <nav class="navigation">
+            <a href="{{ url_for('index') }}">Beranda</a>
+            <a href="{{ url_for('predict') }}">Supervised</a>
+            <a href="{{ url_for('cluster') }}">Clustering</a>
+            <a href="{{ url_for('about') }}">Tentang</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>Proyek Machine Learning — Steel Plates Faults</p>
+    </footer>
+</body>
+</html>
