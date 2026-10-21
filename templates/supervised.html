@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Prediksi Jenis Cacat Pelat Baja</h1>
+    <p>Masukkan nilai 27 fitur untuk melakukan prediksi.</p>
+
+    <form method="POST">
+        {% for feature in features %}
+        <div style="margin-bottom: 12px;">
+            <label for="{{ feature }}">{{ feature }}</label>
+            <input
+                type="number"
+                step="any"
+                id="{{ feature }}"
+                name="{{ feature }}"
+                value="{{ request.form.get(feature, defaults.get(feature, '')) }}"
+                required
+            >
+        </div>
+        {% endfor %}
+
+        <button type="submit">Prediksi</button>
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if result %}
+        <h2>Hasil Prediksi</h2>
+        <p>Jenis cacat: <strong>{{ result.fault_class }}</strong></p>
+        <p>
+            Confidence:
+            {{ "%.2f"|format(result.confidence * 100) }}%
+        </p>
+
+        <h3>Probabilitas Tujuh Kelas</h3>
+        {% for label, probability in result.probabilities.items() %}
+        <p>
+            {{ label }}:
+            {{ "%.2f"|format(probability * 100) }}%
+        </p>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
